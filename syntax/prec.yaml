@@ -1,0 +1,52 @@
+filetype: prec
+
+detect:
+    filename: "(\\.(prec)$|\\.(preh)$)"
+
+rules:
+    - identifier: "\\b[A-Z_][0-9A-Z_]+\\b"
+    - type: "\\b(bool|i8|u8|i16|u16|i32|u32|i64|u64|f32|f64|enum|void|struct|union)\\b"
+    - statement: "\\b(volatile|restrict|mut|typeof|extern|static)\\b"
+    - statement: "\\b(for|if|while|do|else|case|default|switch)\\b"
+    - statement: "\\b(goto|continue|break|return|band|bor|bxor|bnot)\\b"
+    - preproc: "^[[:space:]]*#[[:space:]]*(define|embed|include|(un|ifn?)def|endif|el(if|ifdef|ifndef|se)|if|line|warning|error)"
+    - preproc: "^[[:space:]]*c_include"
+
+      # Operator Color
+    - symbol.operator: "[-+*/%=<>.:;,~&|^!?$]|\\b(sizeof)\\b"
+    - symbol.brackets: "[(){}]|\\[|\\]"
+      # Integer Constants
+    - constant.number: "(\\b([1-9][0-9]*|0[0-7]*|0[Xx][0-9A-Fa-f]+|0[Bb][01]+)([Uu][Ll]?[Ll]?|[Ll][Ll]?[Uu]?)?\\b)"
+      # Decimal Floating Constants
+    - constant.number: "(\\b(([0-9]*[.][0-9]+|[0-9]+[.][0-9]*)([Ee][+-]?[0-9]+)?|[0-9]+[Ee][+-]?[0-9]+)[FfLl]?\\b)"
+      # Hexadecimal Floating Constants
+    - constant.number: "(\\b0[Xx]([0-9A-Za-z]*[.][0-9A-Za-z]+|[0-9A-Za-z]+[.][0-9A-Za-z]*)[Pp][+-]?[0-9]+[FfLl]?\\b)"
+    - constant.bool: "(\\b(true|false|NULL|nullptr|TRUE|FALSE)\\b)"
+
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\([\"'abfnrtv\\\\]|[0-3]?[0-7]{1,2}|x[0-9A-Fa-f]{1,2}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})"
+
+    - constant.string:
+        start: "'"
+        end: "'"
+        skip: "\\\\."
+        rules:
+              # TODO: Revert back to - error: "..+" once #3127 is merged
+            - error: "[[:graph:]]{2,}'"
+            - constant.specialChar: "\\\\([\"'abfnrtv\\\\]|[0-3]?[0-7]{1,2}|x[0-9A-Fa-f]{1,2}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})"
+
+    - comment:
+        start: "//"
+        end: "$"
+        rules:
+            - todo: "(TODO|XXX|FIXME):?"
+
+    - comment:
+        start: "/\\*"
+        end: "\\*/"
+        rules:
+            - todo: "(TODO|XXX|FIXME):?"

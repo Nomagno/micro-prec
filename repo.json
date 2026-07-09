@@ -1,0 +1,15 @@
+[{
+  "Name": "prec",
+  "Description": "PreC language support (linting and syntax highlighting)",
+  "Tags": ["prec"],
+  "Website": "https://github.com/Nomagno/micro-prec",
+  "Versions": [
+    {
+      "Version": "1.0.0",
+      "Require": {
+        "micro": ">=2.0.0"
+      }
+    }
+  ]
+}]
+
