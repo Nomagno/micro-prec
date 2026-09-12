@@ -6,7 +6,7 @@ detect:
 rules:
     - identifier: "\\b[A-Z_][0-9A-Z_]+\\b"
     - type: "\\b(bool|i8|u8|i16|u16|i32|u32|i64|u64|f32|f64|enum|void|struct|union)\\b"
-    - statement: "\\b(volatile|restrict|mut|typeof|extern|static|constdata|unique|local|type)\\b"
+    - statement: "\\b(volatile|restrict|mut|typeof|extern|static|inline|constdata|unique|local|type)\\b"
     - statement: "\\b(for|if|while|do|else|case|default|switch)\\b"
     - statement: "\\b(goto|continue|break|fall|return|band|bor|bxor|bnot)\\b"
     - preproc: "^[[:space:]]*#[[:space:]]*(define|embed|include|(un|ifn?)def|endif|el(if|ifdef|ifndef|se)|if|line|warning|error)"
